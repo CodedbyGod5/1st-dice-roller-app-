@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'die.dart';
-import 'dice_model.dart';
+import 'src/widgets/die.dart';
+import 'src/models/dice_model.dart';
 
 void main() => runApp(const DiceApp());
 
@@ -25,11 +25,14 @@ class DiceApp extends StatelessWidget {
 }
 
 class DicePage extends StatelessWidget {
-  const DicePage({super.key});
+  /// Optional model that can be injected for tests. If null, provider is used.
+  const DicePage({super.key, this.model});
+
+  final DiceModel? model;
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<DiceModel>();
+    final effectiveModel = model ?? context.watch<DiceModel>();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Dice Roller')),
@@ -38,21 +41,21 @@ class DicePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             AnimatedRotation(
-              turns: model.rotation / (2 * pi),
+              turns: effectiveModel.rotation / (2 * pi),
               duration: const Duration(milliseconds: 600),
               curve: Curves.easeOutCubic,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Die(value: model.left, onTap: model.roll),
+                  Die(value: effectiveModel.left, onTap: effectiveModel.roll),
                   const SizedBox(width: 20),
-                  Die(value: model.right, onTap: model.roll),
+                  Die(value: effectiveModel.right, onTap: effectiveModel.roll),
                 ],
               ),
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: model.roll,
+              onPressed: effectiveModel.roll,
               icon: const Icon(Icons.casino_outlined),
               label: const Text('Roll'),
             ),
