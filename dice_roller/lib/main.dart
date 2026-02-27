@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+import 'die.dart';
+
 void main() => runApp(const DiceApp());
 
 class DiceApp extends StatelessWidget {
@@ -53,9 +55,9 @@ class _DicePageState extends State<DicePage>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  _buildDie(_left),
+                  Die(value: _left, onTap: _roll),
                   const SizedBox(width: 20),
-                  _buildDie(_right),
+                  Die(value: _right, onTap: _roll),
                 ],
               ),
             ),
@@ -74,28 +76,4 @@ class _DicePageState extends State<DicePage>
     );
   }
 
-  Widget _buildDie(int value) {
-    return GestureDetector(
-      onTap: _roll,
-      child: Container(
-        width: 120,
-        height: 120,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 1, 59, 24),
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black.withAlpha(128),
-              blurRadius: 8,
-              offset: const Offset(0, 4)),
-          ],
-        ),
-        child: Text(
-          '$value',
-          style: const TextStyle(fontSize: 56, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
 }
