@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'die.dart';
+import 'dice_model.dart';
 
 void main() => runApp(const DiceApp());
 
@@ -11,38 +13,24 @@ class DiceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Dice Roller',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const DicePage(),
+    return ChangeNotifierProvider(
+      create: (_) => DiceModel(),
+      child: MaterialApp(
+        title: 'Dice Roller',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: const DicePage(),
+      ),
     );
   }
 }
 
-class DicePage extends StatefulWidget {
+class DicePage extends StatelessWidget {
   const DicePage({super.key});
 
   @override
-  State<DicePage> createState() => _DicePageState();
-}
-
-class _DicePageState extends State<DicePage>
-    with SingleTickerProviderStateMixin {
-  int _left = 1;
-  int _right = 1;
-  final Random _rng = Random();
-  double _rotation = 0;
-
-  void _roll() {
-    setState(() {
-      _left = _rng.nextInt(6) + 1;
-      _right = _rng.nextInt(6) + 1;
-      _rotation += pi * 2; // spin animation
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final model = context.watch<DiceModel>();
+
     return Scaffold(
       appBar: AppBar(title: const Text('Dice Roller')),
       body: Center(
@@ -50,21 +38,21 @@ class _DicePageState extends State<DicePage>
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             AnimatedRotation(
-              turns: _rotation / (2 * pi),
+              turns: model.rotation / (2 * pi),
               duration: const Duration(milliseconds: 600),
               curve: Curves.easeOutCubic,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Die(value: _left, onTap: _roll),
+                  Die(value: model.left, onTap: model.roll),
                   const SizedBox(width: 20),
-                  Die(value: _right, onTap: _roll),
+                  Die(value: model.right, onTap: model.roll),
                 ],
               ),
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: _roll,
+              onPressed: model.roll,
               icon: const Icon(Icons.casino_outlined),
               label: const Text('Roll'),
             ),
@@ -76,5 +64,4 @@ class _DicePageState extends State<DicePage>
       ),
     );
   }
-
 }
