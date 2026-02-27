@@ -1,0 +1,5 @@
+{
+    "gradle.nestedProjects": false,
+    "cmake.sourceDirectory": "C:/flutter_projec/adv_basics/windows/runner",
+    "java.jdt.ls.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.2.10-hotspot"
+}
