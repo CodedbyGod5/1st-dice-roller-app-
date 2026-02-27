@@ -1,0 +1,3 @@
+# No external lints included; configure rules here
+linter:
+  rules: {}
