@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Simple cache wrapper around SharedPreferences for the dice state.
 class CacheService {
   static const _keyLeft = 'dice_left';
   static const _keyRight = 'dice_right';
