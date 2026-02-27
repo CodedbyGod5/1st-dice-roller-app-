@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-git remote add origin git@github.com:CodedbyGod5/1st-dice-roller-app-.git
-git branch -M main
-git push -u origin main
+
 void main() => runApp(const DiceApp());
 
 class DiceApp extends StatelessWidget {
@@ -88,9 +86,9 @@ class _DicePageState extends State<DicePage>
           borderRadius: BorderRadius.circular(12),
           boxShadow: <BoxShadow>[
             BoxShadow(
-                color: Colors.black.withOpacity(0.5),
-                blurRadius: 8,
-                offset: const Offset(0, 4)),
+              color: Colors.black.withAlpha(128),
+              blurRadius: 8,
+              offset: const Offset(0, 4)),
           ],
         ),
         child: Text(
