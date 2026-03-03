@@ -1,4 +1,4 @@
-﻿# Flutter Dice Roller & Advanced Basics
+# Flutter Dice Roller & Advanced Basics
 
 A collection of Flutter learning projects demonstrating mobile app development with Dart.
 
@@ -118,7 +118,7 @@ flutter_projec/
 This project is configured with:
 - **User**: nicholas oden
 - **Email**: nicholas.oden8@gmail.com
-- **Remote**: SSH (git@github.com:CodedbyGod5/1st-dice-roller-app-.git)
+
 
 ## License
 
